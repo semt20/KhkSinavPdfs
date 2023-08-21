@@ -51,7 +51,10 @@ if not os.path.exists("pdfs"):
     os.makedirs("pdfs")
 for exam in examList:
     for i in range(len(exam.pdfLinkleri)):
-        pdfUrl = "https://khk.gov.ct.tr" + exam.pdfLinkleri[i]
-        pdfResponse = requests.get(pdfUrl)
-        with open("pdfs/"+exam.siraNo+"-SinavTarihi-"+exam.sinavTarihi[i] +"DaireBakanlik-" + exam.daireBakanlik + "+++KadroAdi-" + exam.kadroAdi +   ".pdf", "wb") as f:
-            f.write(pdfResponse.content)
+        try:
+            pdfUrl = "https://khk.gov.ct.tr" + exam.pdfLinkleri[i]
+            pdfResponse = requests.get(pdfUrl)
+            with open("pdfs/"+exam.siraNo+"-ST-"+exam.sinavTarihi[i] +"+DB-" + exam.daireBakanlik + "+KA-" + exam.kadroAdi +   ".pdf", "wb") as f:                f.write(pdfResponse.content)
+
+        except:
+            print("Dosya indirilirken hata olustu " + exam.siraNo + " " + exam.daireBakanlik + " " + exam.kadroAdi + " " + exam.sinavTarihi[i])
